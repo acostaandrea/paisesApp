@@ -1,1 +1,16 @@
-<p>sidebar works!</p>
+<h2>
+    Busquedas
+</h2>
+<hr>
+<ul class="list-group">
+    <li routerLink="" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true}"   
+        class="list-group-item">
+        Buscar país
+    </li>  <!-- añadimos el ruoter link del routermodule, el string vacio hace lo que tenemos definido en el path, el routerLinkActive para que se marque cuando estás en la página activa y el active options para que solo se marque cuando sea exacto-->
+    <li routerLink="region" routerLinkActive="active" class="list-group-item">Por region</li>
+    <li  routerLink="capital"  routerLinkActive="active" class="list-group-item"> Por capital </li>
+
+
+</ul>
