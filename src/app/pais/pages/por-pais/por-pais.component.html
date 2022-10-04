@@ -1,15 +1,22 @@
-<h2>Por pais</h2>   
+<h2>Por país</h2>   
 <hr>
 
 <div class="row">
     <div class="col">
-        <form (ngSubmit)="buscar()" autocomplete="off">
+        <!-- <form (ngSubmit)="buscar()" autocomplete="off">
             <input type="text" 
                     name="termino"
                     class="form-control"
                     [(ngModel)] = "termino"   
                     placeholder="Buscar pais..."/>
-         </form>  <!--definimos propiedad termino y metodo ngSubmit en por-pais component -->
+         </form>  definimos propiedad termino y metodo ngSubmit en por-pais component -->
+         <app-pais-input 
+         (onEnter)="buscar($event)"
+         (onDebounce)="sugerencias($event)" 
+         placeholder = "Buscar país..."
+         
+         ></app-pais-input>  <!-- escucho el evento onEnter -->
+
     </div>
 </div>
 
@@ -20,10 +27,10 @@ class="alert alert-danger">
     No se encontró nada con el {{termino}}
  </div>  <!--ngif solo se muestra cuando hay error -->
 
-<div *ngIf="!hayError" 
+<div *ngIf="paises.length >0" 
 class="row">
     <div class="col">
-        <table class="table table-hover">
+        <!-- <table class="table table-hover">
             <thead>
                 <tr>
                     <th>#  </th>
@@ -34,17 +41,20 @@ class="row">
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>bandera</td>
-                    <td>nombre</td>
-                    <td>1234687</td>
+                 <tr *ngFor="let pais of paises; let i = index"> <!--pais es el nombre de la propiedad, prop let para extraer indice-->
+                    <!-- <td>{{i+1}}</td>
                     <td>
-                        <a href="/pais/cri">Ver...</a>
+                    <img [src]="pais.flags.svg" class="small-flag">
+                    </td>
+                    <td>{{pais.name.common}}</td>
+                    <td>{{pais.population | number}}</td>
+                    <td>
+                        <a [routerLink]="['/pais', pais.cca2]">Ver...</a>
                     </td>
 
                 </tr>
             </tbody>
-        </table>
+        </table> --> 
+        <app-pais-table [paises]="paises"></app-pais-table>
     </div>
 </div>

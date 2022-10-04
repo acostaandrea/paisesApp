@@ -1,1 +1,37 @@
-<p>por-capital works!</p>
+<h2>Por capital</h2>   
+<hr>
+
+<div class="row">
+    <div class="col">
+        <!-- <form (ngSubmit)="buscar()" autocomplete="off">
+            <input type="text" 
+                    name="termino"
+                    class="form-control"
+                    [(ngModel)] = "termino"   
+                    placeholder="Buscar pais..."/>
+         </form>  definimos propiedad termino y metodo ngSubmit en por-pais component -->
+         <app-pais-input 
+         (onEnter)="buscar($event)"
+
+         placeholder ="Buscar capital..."
+         
+         
+         ></app-pais-input>  <!-- escucho el evento onEnter -->
+
+    </div>
+</div>
+
+<hr> 
+
+<div *ngIf="hayError" 
+class="alert alert-danger">
+    No se encontró nada con el {{termino}}
+ </div>  <!--ngif solo se muestra cuando hay error -->
+
+ <div *ngIf="paises.length >0" 
+    class="row">
+        <div class="col">
+            <app-pais-table [paises]="paises"></app-pais-table>
+        </div>
+    </div>
+
