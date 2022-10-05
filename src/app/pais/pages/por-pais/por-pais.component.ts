@@ -5,7 +5,13 @@ import { PaisService } from '../../services/pais.service';
 @Component({
   selector: 'app-por-pais',
   templateUrl: './por-pais.component.html',
-  styleUrls: ['./por-pais.component.css']
+  styles: [
+    `
+    li{
+      cursor: pointer;
+    }
+  `
+  ]
 })
 export class PorPaisComponent {
 
@@ -16,12 +22,19 @@ export class PorPaisComponent {
   
   paises: Country [] = []; 
 
+  paisesSugeridos: Country [] = [];
+
+  mostrarSugerencia : boolean = false; //para que nos ayude a ocultar la sugerencia
+
   constructor(private paisService: PaisService){ }
 
   buscar(termino: string) {
 
     this.hayError = false;
     this.termino = termino;
+    this.mostrarSugerencia = false;
+
+    
     
 
     this.paisService.buscarPais(termino)
@@ -44,10 +57,21 @@ export class PorPaisComponent {
     sugerencias(termino: string){
 
       this.hayError=false;
-      //to do crear sugerencias
-    
+      this.termino = termino;
+      this.mostrarSugerencia = true;
+      
+      this.paisService.buscarPais(termino)
+      .subscribe(
+        paises => this.paisesSugeridos = paises.splice(0,5),
+        (err) => this.paisesSugeridos = []
+        );
+      
+          
+  }
 
-
+  buscarSugerido( termino : string){
+    this.buscar(termino);
+     
   }
 }
 //para que se ejecute un observable pongo subscribe, resp es una respuesta exitosa (el next), segundo argunmento del subscribe (err)

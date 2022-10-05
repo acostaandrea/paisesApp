@@ -1,3 +1,4 @@
+<div class="animate__animated animate__fadeIn animate__faster">
 
 <h3>Buscar por region <small>{{ regionActiva | titlecase }}</small></h3>
 <hr>
@@ -15,19 +16,21 @@
 
         }" -->
 
-        <button *ngFor="let region of regiones"
-                [class]="getClaseCSS(region)" 
-                (click)="activarRegion(region)">
+        <button *ngFor="let region of regiones" [class]="getClaseCSS(region)" (click)="activarRegion(region)">
             {{region | titlecase}}
         </button>
     </div>
 </div>
 
-<div *ngIf="paises.length >0" 
-    class="row">
-        <div class="col">
-            <app-pais-table [paises]="paises"></app-pais-table>
-        </div>
+</div>
+
+
+
+
+<div *ngIf="paises.length >0" class="row">
+    <div class="col">
+        <app-pais-table [paises]="paises"></app-pais-table>
     </div>
+</div>
 
 <!-- despues de class con llaves cuadradas lo que se ponen son condiciones -->
