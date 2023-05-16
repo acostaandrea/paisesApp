@@ -9,6 +9,8 @@ import { PorRegionComponent } from './pages/por-region/por-region.component';
 import { VerPaisComponent } from './pages/ver-pais/ver-pais.component';
 import { PaisTableComponent } from './components/pais-table/pais-table.component';
 import { PaisInputComponent } from './components/pais-input/pais-input.component';
+import { CountriesRoutingModule } from './countries-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -32,7 +34,9 @@ import { PaisInputComponent } from './components/pais-input/pais-input.component
   imports: [
     CommonModule,
     FormsModule, //importamos modulo para formularios (ngModel)
-    RouterModule
+    RouterModule,
+    CountriesRoutingModule,
+    SharedModule
 
   ]
 })

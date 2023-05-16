@@ -1,0 +1,33 @@
+<h2>Países</h2>
+<hr />
+<ul class="list-group">
+  <!-- <li
+    class="list-group-item"
+    routerLink=""
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    Home Page
+  </li>
+  <li class="list-group-item" routerLink="about" routerLinkActive="active">
+    About Page
+  </li>
+  <li class="list-group-item" routerLink="contact" routerLinkActive="active">
+    Contact Page
+  </li> -->
+  <li
+    routerLink="countries/paises"
+    routerLinkActive="active"
+
+    class="list-group-item"
+  >
+    Buscar país
+  </li>
+  <!-- añadimos el ruoter link del routermodule, el string vacio hace lo que tenemos definido en el path, el routerLinkActive para que se marque cuando estás en la página activa y el active options para que solo se marque cuando sea exacto-->
+  <li routerLink="countries/region" routerLinkActive="active" class="list-group-item">
+    Por region
+  </li>
+  <li routerLink="countries/capital" routerLinkActive="active" class="list-group-item">
+    Por capital
+  </li>
+</ul>

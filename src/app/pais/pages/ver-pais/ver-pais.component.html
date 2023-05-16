@@ -1,13 +1,17 @@
-<div *ngIf="!pais; else divPais"
-class="alert alert-info">
+<ng-template #loading >
+  <div class="alert alert-info">
+
     Espere por favor...
-</div>
+  </div>
 
-<ng-template #divPais>
+</ng-template>
 
-<div class="row">
+<div *ngIf="pais; else loading">
+
+<div class="row" >
     <div class="col-12">
-        <h1>Pais: <small>{{pais.name.common}}</small></h1>
+        <h2>Pais: <strong>{{pais.name.common}}</strong></h2>
+        <hr>
     </div>
 </div>
 
@@ -20,10 +24,13 @@ class="alert alert-info">
         <h3>Información</h3>
         <ul class="list-group">
             <li class="list-group-item">
+                <strong>Capital: </strong> {{pais.capital}}
+            </li>
+            <li class="list-group-item">
                 <strong>Población: </strong> {{pais.population | number}}
             </li>
             <li class="list-group-item">
-                <strong>Código numerico:</strong> {{pais.ccn3}}
+                <strong>Código numerico:</strong> {{pais.cca3}}
             </li>
             <li class="list-group-item">
                 <strong>Código slv:</strong> {{pais.cca2}}
@@ -32,7 +39,7 @@ class="alert alert-info">
     </div>
 </div>
 
-<h3>Traducciones:</h3>
+<h3 class="mt-2">Traducciones:</h3>
 
 <div class="row">
     <div class="col">
@@ -47,7 +54,7 @@ class="alert alert-info">
 
 <!-- <pre class="mt-5">{{pais | json}}</pre>  -->
 
-</ng-template>
+</div>
 
 
 

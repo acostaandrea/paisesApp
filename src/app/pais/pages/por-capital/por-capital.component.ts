@@ -12,21 +12,21 @@ export class PorCapitalComponent {
   termino: string = "";
 
   hayError: boolean = false;
-  
-  paises: Country [] = []; 
-  
-   
+
+  paises: Country [] = [];
+
+
   constructor(private paisService: PaisService) { }
 
   buscar(termino: string) {
 
     this.hayError = false;
     this.termino = termino;
-    
+
 
     this.paisService.buscarCapital(termino)
-      .subscribe((paises) => {
-        
+      .subscribe(paises => {
+
         this.paises = paises; //incluyo el items del ngfor
 
       }, (err) => {
@@ -35,10 +35,10 @@ export class PorCapitalComponent {
       });
 
 
-    
+
 
     }
 
 
-  
+
 }
