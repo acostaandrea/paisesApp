@@ -1,37 +1,48 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject, Subscription, debounceTime } from 'rxjs';
+
 
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.css'],
 })
-export class SearchBoxComponent implements OnInit {
-  @Output() onValue: EventEmitter<string> = new EventEmitter(); //para hacer la emision del termino, onEnter es un evento, el evento que se emite es termino
-  @Output() onDebounce: EventEmitter<string> = new EventEmitter(); // se emite cuando la persona deja de escribir
+export class SearchBoxComponent implements OnInit, OnDestroy {
 
-  @Input() placeholder: string = '';
+  private debouncer: Subject<string> = new Subject<string>();
+  private debouncerSuscription?: Subscription;
 
-  debouncer: Subject<string> = new Subject(); //es un observable especial, se emite cuando dejo de escribir,para eso utilizamos el metodo de ciclo de vida onInit
+  @Input()
+  public placeholder: string = '';
 
-  value: string = '';
+  @Input()
+  public initialValue: string = '';
 
-  ngOnInit() {
-    this.debouncer
-      .pipe(
-        debounceTime(300) //milesimas de segundos antes de emitir el proximo valor
-      )
-      .subscribe((valor) => {
-        this.onDebounce.emit(valor);
-      });
-  } //Se dispara una unica vez cuando el componente es creado,pipe permite transformar la salida del subscribe
+  @Output()
+  public onValue = new EventEmitter<string>();
 
-  emitValue(value: string) {
-    this.onValue.emit(this.value);
+  @Output()
+  public onDebounce = new EventEmitter<string>();
+
+  ngOnInit(): void {
+    this.debouncerSuscription = this.debouncer
+    .pipe(
+      debounceTime(300)
+    )
+    .subscribe( value => {
+      this.onDebounce.emit( value );
+    });
   }
 
-  teclaPresionada() {
-    this.debouncer.next(this.value);
+  ngOnDestroy(): void {
+    this.debouncerSuscription?.unsubscribe();
+  }
+
+  emitValue( value: string ):void {
+    this.onValue.emit( value );
+  }
+
+  onKeyPress( searchTerm: string ) {
+    this.debouncer.next( searchTerm );
   }
 }

@@ -9,12 +9,7 @@ import { Country } from '../../interfaces/pais.interface';
 export class PaisTableComponent implements OnInit {
 
   constructor() { }
+  ngOnInit(): void {  }
 
-  ngOnInit(): void {
-  }
-
-  @Input() paises: Country [] = [];
-
-
-
+  @Input() countries: Country [] = [];
 }

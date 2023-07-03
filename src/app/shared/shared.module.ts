@@ -9,6 +9,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 
 
@@ -20,14 +21,16 @@ import { SearchBoxComponent } from './components/search-box/search-box.component
     HomePageComponent,
     AboutPageComponent,
     ContactPageComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
+    LoadingSpinnerComponent
   ],
   exports: [
     SidebarComponent,
     HomePageComponent,
     AboutPageComponent,
     ContactPageComponent,
-    SearchBoxComponent  //exporto componente porque va a ser usado por toda la aplicacion
+    SearchBoxComponent,
+    LoadingSpinnerComponent  //exporto componente porque va a ser usado por toda la aplicacion
   ],
 
   imports: [

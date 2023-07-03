@@ -13,7 +13,11 @@ import { PaisService } from '../../services/pais.service';
 })
 export class VerPaisComponent implements OnInit {
 
-  public pais?: Country;   //con signo de pregunta le digo a typescript que puede ser undefined
+  public country?: Country;   //con signo de pregunta le digo a typescript que puede ser undefined
+
+  public googleMapsImageUrl: string ='';
+
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -31,7 +35,11 @@ export class VerPaisComponent implements OnInit {
       if(!pais){
         return this.router.navigateByUrl('/'); //si no hay pais regresa a la pagina principal
       }
-      this.pais = pais; //si hay pais lo asigna a la variable pais
+      this.country = pais;
+      const lat = pais.latlng[0];
+      const lng = pais.latlng[1];
+      this.googleMapsImageUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}`;
+       //si hay pais lo asigna a la variable pais
       return
     });
 

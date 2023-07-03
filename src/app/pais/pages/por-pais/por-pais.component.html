@@ -1,89 +1,20 @@
-<div class="animate__animated animate__fadeIn animate__faster">
-
-<h2>Por país</h2>   
+<h2>Por País</h2>
 <hr>
 
 <div class="row">
-    <div class="col">
-        <!-- <form (ngSubmit)="buscar()" autocomplete="off">
-            <input type="text" 
-                    name="termino"
-                    class="form-control"
-                    [(ngModel)] = "termino"   
-                    placeholder="Buscar pais..."/>
-         </form>  definimos propiedad termino y metodo ngSubmit en por-pais component -->
-         <app-pais-input 
-         (onEnter)="buscar($event)"
-         (onDebounce)="sugerencias($event)" 
-         placeholder = "Buscar país..."
-         
-         ></app-pais-input>  <!-- escucho el evento onEnter -->
-
-    </div>
+  <div class="col">
+      <!-- SearchBox -->
+      <app-search-box
+        (onDebounce)="searchByCountry($event)"
+        [initialValue]="initialValue"
+        placeholder="Buscar por país"></app-search-box>
+  </div>
 </div>
 
-
-</div>
-
-<ul *ngIf="mostrarSugerencia"
-
-class="list-group">
-    <li *ngFor="let pais of paisesSugeridos" 
-    class="list-group-item list-group-item-action">
-        <a class="nav-link"
-        [routerLink]="['/pais', pais.cca2]">
-            {{pais.name.common}}
-
-        </a>
-    </li>
-    <li class="list-group-item list-group-item-action"
-        (click)="buscarSugerido(termino)"
-    >
-        <a class="nav-link">
-             Buscar "{{termino}}"   <!--comillas para buscar literalmente esto -->
-
-        </a>
-    </li>
-    
-</ul>
-
-
-
-<hr>
-
-<div *ngIf="hayError" 
-class="alert alert-danger">
-    No se encontró nada con el {{termino}}
- </div>  <!--ngif solo se muestra cuando hay error -->
-
-<div *ngIf="paises.length >0" 
-class="row">
-    <div class="col">
-        <!-- <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#  </th>
-                    <th>Bandera</th>
-                    <th>Nombre</th>
-                    <th>Poblacion</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                 <tr *ngFor="let pais of paises; let i = index"> <!--pais es el nombre de la propiedad, prop let para extraer indice-->
-                    <!-- <td>{{i+1}}</td>
-                    <td>
-                    <img [src]="pais.flags.svg" class="small-flag">
-                    </td>
-                    <td>{{pais.name.common}}</td>
-                    <td>{{pais.population | number}}</td>
-                    <td>
-                        <a [routerLink]="['/pais', pais.cca2]">Ver...</a>
-                    </td>
-
-                </tr>
-            </tbody>
-        </table> --> 
-        <app-pais-table [paises]="paises"></app-pais-table>
-    </div>
+<div class="row">
+  <div class="col">
+    <hr>
+    <shared-loading-spinner *ngIf="isLoading"></shared-loading-spinner>
+    <app-pais-table [countries]="countries"></app-pais-table>
+  </div>
 </div>

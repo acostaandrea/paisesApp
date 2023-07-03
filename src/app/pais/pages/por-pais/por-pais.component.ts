@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Country } from '../../interfaces/pais.interface';
 import { PaisService } from '../../services/pais.service';
 
@@ -13,66 +13,78 @@ import { PaisService } from '../../services/pais.service';
   `
   ]
 })
-export class PorPaisComponent {
+export class PorPaisComponent implements OnInit{
 
 
-  termino: string = "";
+  countries: Country [] = [];
 
-  hayError: boolean = false;
-  
-  paises: Country [] = []; 
-
-  paisesSugeridos: Country [] = [];
+  public isLoading: boolean = false;
+  public initialValue: string = "";
 
   mostrarSugerencia : boolean = false; //para que nos ayude a ocultar la sugerencia
 
   constructor(private paisService: PaisService){ }
 
-  buscar(termino: string) {
+  ngOnInit(): void {
+    this.countries = this.paisService.cacheStore.byCountries.countries;
+    this.initialValue = this.paisService.cacheStore.byCountries.term;
+  }
 
-    this.hayError = false;
-    this.termino = termino;
-    this.mostrarSugerencia = false;
 
-    
-    
-
-    this.paisService.buscarPais(termino)
-      .subscribe((paises) => {
-        
-        console.log(paises);
-        this.paises = paises; //incluyo el items del ngfor
-
-      }, (err) => {
-        this.hayError = true;
-        this.paises = []
+  searchByCountry( term: string ):void  {
+    this.isLoading = true;
+    this.paisService.buscarPais( term )
+      .subscribe( countries => {
+        this.countries = countries;
+        this.isLoading = false;
       });
 
-
-    
-
-    }
-    
-    
-    sugerencias(termino: string){
-
-      this.hayError=false;
-      this.termino = termino;
-      this.mostrarSugerencia = true;
-      
-      this.paisService.buscarPais(termino)
-      .subscribe(
-        paises => this.paisesSugeridos = paises.splice(0,5),
-        (err) => this.paisesSugeridos = []
-        );
-      
-          
   }
 
-  buscarSugerido( termino : string){
-    this.buscar(termino);
-     
-  }
+  // buscar(termino: string) {
+
+  //   this.isLoading = true;
+
+  //   this.hayError = false;
+  //   this.termino = termino;
+  //   this.mostrarSugerencia = false;
+
+  //   this.paisService.buscarPais(termino)
+  //     .subscribe((paises) => {
+
+  //       // console.log(paises);
+  //       this.countries = paises; //incluyo el items del ngfor
+  //       this.isLoading = false;
+  //     }, (err) => {
+  //       this.hayError = true;
+  //       this.countries = []
+  //     });
+
+
+
+
+  //   }
+
+
+  //   sugerencias(termino: string){
+
+  //     this.hayError=false;
+  //     this.termino = termino;
+  //     this.mostrarSugerencia = true;
+
+  //     this.paisService.buscarPais(termino)
+  //     .subscribe(
+  //       paises => this.paisesSugeridos = paises.splice(0,5),
+  //       (err) => this.paisesSugeridos = []
+  //       );
+
+
+  // }
+
+  // buscarSugerido( termino : string){
+  //   this.buscar(termino);
+
+  // }
 }
 //para que se ejecute un observable pongo subscribe, resp es una respuesta exitosa (el next), segundo argunmento del subscribe (err)
     // buscarPais viene de pais.service

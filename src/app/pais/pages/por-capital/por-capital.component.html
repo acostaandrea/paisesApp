@@ -1,46 +1,24 @@
-<div class="animate__animated animate__fadeIn animate__faster">
-
-<h2>Por capital</h2>
+<h2>Por Capital</h2>
 <hr>
+
 
 <div class="row">
-    <div class="col">
-        <!-- <form (ngSubmit)="buscar()" autocomplete="off">
-            <input type="text"
-                    name="termino"
-                    class="form-control"
-                    [(ngModel)] = "termino"
-                    placeholder="Buscar pais..."/>
-         </form>  definimos propiedad termino y metodo ngSubmit en por-pais component -->
-         <!-- <app-pais-input
-         (onEnter)="buscar($event)"
-
-         placeholder ="Buscar capital..."
-
-
-         ></app-pais-input> -->
-         <app-search-box placeholder="este es un nuevo placeholder" (onEnter)="buscar(termino)"></app-search-box>
-         <!-- escucho el evento onEnter -->
-
-    </div>
+  <div class="col">
+      <!-- SearchBox -->
+      <!-- (onValue)="searchByCapital($event)" -->
+      <app-search-box
+        (onDebounce)="searchByCapital($event)"
+        [initialValue]="initialValue"
+        placeholder="Buscar por capital"></app-search-box>
+  </div>
 </div>
 
+<div class="row">
+  <div class="col">
+    <hr>
+    <shared-loading-spinner *ngIf="isLoading"></shared-loading-spinner>
 
+    <app-pais-table [countries]="countries"></app-pais-table>
+  </div>
 </div>
-
-
-
-<hr>
-
-<div *ngIf="hayError"
-class="alert alert-danger">
-    No se encontró nada con el {{termino}}
- </div>  <!--ngif solo se muestra cuando hay error -->
-
- <div *ngIf="paises.length >0"
-    class="row">
-        <div class="col">
-            <app-pais-table [paises]="paises"></app-pais-table>
-        </div>
-    </div>
 
