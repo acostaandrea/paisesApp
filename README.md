@@ -1,5 +1,25 @@
 # PaisesApp
 
+No usar directamente en AngularCLI(a menos que esten creadas las variables de entorno), ya que las variables de entorno se crean en el .env
+
+##Pasos
+1. Clonar el .env template y renombrarlo a .env
+2. Llenar las variables de entorno acorde
+3. Crear Angular envs (opcional)
+
+```
+npm run envs
+```
+4. Para development ejecutar
+```
+npm run start
+```
+
+5. Para produccion ejecutar:
+```
+npm run build:github
+```
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
 
 ## Development server

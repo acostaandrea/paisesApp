@@ -12,6 +12,11 @@ import { PaisInputComponent } from './components/pais-input/pais-input.component
 import { CountriesRoutingModule } from './countries-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
+import * as mapboxgl from 'mapbox-gl'; //importamos mapbox
+import { environment } from 'src/environments/environment';
+
+
+
 
 
 
